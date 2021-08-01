@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
           this.storageService.Identifycation = result.identification;
           this.storageService.Route = result.routes;
           this.router.navigate(['notfound']);
-          console.log(this.storageService);
+          // console.log(this.storageService);
         },
         error => {
           console.log("登录失败",error);

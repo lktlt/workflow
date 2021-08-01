@@ -8,14 +8,18 @@ import { zh_CN } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { FormsModule ,FormGroup,ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UrlConfigService } from "./core/configs/url-config.service";
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { AuthHeaderInterceptor } from "./core/interceptors/auth-header-interceptor";
+import { ErrorHandlerInceptor } from "./core/interceptors/error-handler-interceptor";
+import { NzMessageService } from "ng-zorro-antd/message";
+
 
 registerLocaleData(zh);
 
-export function initializeApp(uriConfig:UrlConfigService) {
+export function initializeApp(uriConfig: UrlConfigService) {
   return ()=> uriConfig.init(); // 返回方法
 }
 @NgModule({
@@ -33,9 +37,14 @@ export function initializeApp(uriConfig:UrlConfigService) {
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
+    NzMessageService,
+    // 拦截器
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInceptor, multi: true },
     UrlConfigService,
     // 执行指定的promise，程序会阻塞直到promise resolve
-    { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [UrlConfigService], multi: true }
+    { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [UrlConfigService], multi: true },
+
   ],
   bootstrap: [AppComponent]
 })
