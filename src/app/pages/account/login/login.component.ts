@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer,// dom上下文消毒之后可以安全的使用，防跨站脚本攻击
     private router: Router,
-    private storageService:StorageService) { } // dom上下文消毒之后可以安全的使用，防跨站脚本攻击
+    private storageService:StorageService) { }
 
   ngOnInit(): void {
     this.myGroup = this.fb.group({
@@ -55,14 +55,17 @@ export class LoginComponent implements OnInit {
         this.myGroup.controls['captchaValue'].value,
       ).subscribe(
         result => {
+          console.log("登录成功",result);
           this.storageService.userToken = result.token;
           this.storageService.Name = result.name;
           this.storageService.Avatar = result.avatar;
           this.storageService.Identifycation = result.identification;
           this.storageService.Route = result.routes;
           this.router.navigate(['notfound']);
+          console.log(this.storageService);
         },
         error => {
+          console.log("登录失败",error);
           this.myGroup.controls["pwd"].reset();
           this.myGroup.controls["captchaValue"].reset();
           this.refreshCaptcha();

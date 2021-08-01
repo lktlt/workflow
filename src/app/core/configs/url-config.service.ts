@@ -20,7 +20,7 @@ export class UrlConfigService {
           this.http.get(configFile).subscribe((urlObj: any) => {
             this._baseUri = urlObj["baseUrl"];
             this._apiUri = `${this._baseUri}/api`;
-            console.log(this._baseUri, this._apiUri);
+            // console.log(this._baseUri, this._apiUri);
             resolve();
           },
           error => {
@@ -29,7 +29,7 @@ export class UrlConfigService {
           });
         },
         error => {
-          console.log("我i发堵起环境配置文件");
+          console.log("无法读取环境配置文件");
           reject();
         }
       );

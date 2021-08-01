@@ -31,7 +31,6 @@ export class StorageService {
   set Avatar(value) {
     localStorage.setItem("avatar", value||'');
   }
-
   get Identifycation() {
     return localStorage.getItem("identifycation");
   }
