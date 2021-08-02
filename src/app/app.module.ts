@@ -15,6 +15,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthHeaderInterceptor } from "./core/interceptors/auth-header-interceptor";
 import { ErrorHandlerInceptor } from "./core/interceptors/error-handler-interceptor";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { LayoutModule } from './pages/layout/layout.module';
 
 
 registerLocaleData(zh);
@@ -34,6 +35,7 @@ export function initializeApp(uriConfig: UrlConfigService) {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    LayoutModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

@@ -1,0 +1,83 @@
+<nz-layout style="min-height: 100vh;" >
+  <nz-header >
+    <h1>WorkFlow</h1>
+    <div class="user">
+      <a nz-dropdown [nzDropdownMenu]="menu" [nzOverlayStyle]="{top:'10px'}">
+        <nz-badge>
+          <nz-avatar *ngIf="avatar" [nzSrc]="getImgUrl()"></nz-avatar>
+          <nz-avatar *ngIf="!avatar" nzIcon="user"></nz-avatar>
+        </nz-badge>
+        {{userName}}
+        <i nz-icon nzType="down"></i>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable="true">
+          <li nz-menu-item>修改密码</li>
+          <li nz-menu-divider></li>
+          <li nz-menu-item>注销</li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider  nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null"  >
+      <ul nz-menu nzMode="inline" nzTheme="light" >
+        <!-- <ng-container *ngFor="let node of menuTree">
+          <ng-container *canOperate="node.canOperate">
+              <li nz-menu-item nzMatchRouter *ngIf="!node.children">
+                  <a [routerLink]="[ node.routerLink ]" >
+                      <i nz-icon [nzType]="node.iconType"></i><span
+                          *ngIf="!isCollapsed">{{node.name}}</span></a>
+              </li>
+              <li nz-submenu [nzIcon]="node.iconType" [nzTitle]="node.name" *ngIf="node.children">
+                  <ul>
+                      <ng-container *ngFor="let childNode of node.children">
+                          <li nz-menu-item nzMatchRouter *canOperate="childNode.canOperate">
+                              <a [routerLink]="[ childNode.routerLink ]"
+                                 >
+                                  <i nz-icon [nzType]="childNode.iconType"></i>{{childNode.name}}</a></li>
+                      </ng-container>
+                  </ul>
+              </li>
+          </ng-container>
+      </ng-container> -->
+      <ng-container *ngFor="let node of menuTree">
+        <ng-container *canOperate="node.canOperate">
+
+          <li nz-menu-item nzMatchRouter="true" *ngIf="!node.children">
+              <a [routerLink]="[ node.routerLink ]" >
+                <i nz-icon [nzType]="node.iconType"></i>
+                <span *ngIf="!isCollapsed">{{node.name}}</span>
+              </a>
+          </li>
+
+          <li nz-submenu [nzIcon]="node.iconType" [nzTitle]="node.name" *ngIf="node.children" >
+            <ul>
+              <ng-container *ngFor="let item of node.children">
+                <li nz-menu-item nzMatchRouter="true" *canOperate="item.canOperate">
+                  <a [routerLink]="[ item.routerLink ]">
+                    <i nz-icon [nzType]="item.iconType"></i>
+                    <span *ngIf="!isCollapsed">{{item.name}}</span>
+                  </a>
+                </li>
+              </ng-container>
+              </ul>
+          </li>
+
+          </ng-container>
+        </ng-container>
+      </ul>
+
+    </nz-sider>
+    <nz-content>
+      <nz-card>
+
+      </nz-card>
+      <div class="fullWindow">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+

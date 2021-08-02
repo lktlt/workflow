@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notfound.component.less']
 })
 export class NotfoundComponent implements OnInit {
-
-  constructor() { }
-
   ngOnInit(): void {
+
   }
 
 }

@@ -44,4 +44,29 @@ export class StorageService {
     localStorage.setItem("route", value||'');
   }
 
+  get UserRoles() {
+    return localStorage.getItem("userroles");
+  }
+
+  get isExpiration() {
+    let now = new Date();
+    let expire = new Date(localStorage.getItem('userTokenExpiration')||"");
+    return now > expire; // 已到期
+  }
+
+  hasUserToken() {
+    return this.userToken?true:false;
+  }
+
+  removeUserToken() {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userroles');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userTokenExpiration');
+
+    localStorage.removeItem("name");
+    localStorage.removeItem("avatar");
+    localStorage.removeItem("identifycation");
+    localStorage.removeItem("route");
+  }
 }

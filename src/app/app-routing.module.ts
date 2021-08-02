@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountModule } from "./pages/account/account.module";
-import { LoginComponent } from "./pages/account/login/login.component";
+import { LayoutComponent } from './pages/layout/layout/layout.component';
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
-  {path:"**",loadChildren:()=>import("./pages/notfound/notfound.module").then(m=>m.NotfoundModule)}
+  { path: "account", loadChildren: () => import("./pages/account/account.module").then(m => m.AccountModule) },
+  {
+    path: "", component: LayoutComponent,
+    children: [
+      { path: "", loadChildren: () => import("./pages/information/information.module").then(m => m.InfomationModule) }
+    ]
+  },
+  { path: "**", loadChildren: () => import("./pages/notfound/notfound.module").then(m => m.NotfoundModule) }
 ];
 
 @NgModule({

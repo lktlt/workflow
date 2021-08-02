@@ -8,6 +8,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', redirectTo: 'login' },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent,canActivate:[AuthGuard] }
     ]),
     NzCardModule,
     NzFormModule,

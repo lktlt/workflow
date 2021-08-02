@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
           this.storageService.Avatar = result.avatar;
           this.storageService.Identifycation = result.identification;
           this.storageService.Route = result.routes;
-          this.router.navigate(['notfound']);
+          this.router.navigate(['']);
           // console.log(this.storageService);
         },
         error => {

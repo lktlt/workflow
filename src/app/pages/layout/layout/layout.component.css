@@ -1,0 +1,15 @@
+nz-header {
+  background-color: green;
+  color: #fff;
+}
+nz-header h1 {
+  margin-left: 20px;
+  float: left;
+}
+nz-header .user {
+  float: right;
+  height: 64px;
+  line-height: 64px;
+  overflow: hidden;
+  color: #fff;
+}
