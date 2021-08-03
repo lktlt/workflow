@@ -37,6 +37,7 @@ export class UrlConfigService {
 
   get LoginUri(): string { return `${this._apiUri}/login` }
 
-  get captchaUri(): string { return `${this._apiUri}/captcha`}
-
+  get captchaUri(): string { return `${this._apiUri}/captcha` }
+  
+  get ModifySelfPasswordUri(): string { return `${this._apiUri}/password` };
 }

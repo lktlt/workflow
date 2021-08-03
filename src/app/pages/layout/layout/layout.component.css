@@ -1,15 +1,21 @@
 nz-header {
-  background-color: green;
+  display: flex;
   color: #fff;
+  justify-content: space-between;
+  overflow: hidden;
 }
 nz-header h1 {
-  margin-left: 20px;
-  float: left;
+  justify-self: left;
+}
+nz-header .titleMenubar {
+  display: flex;
 }
 nz-header .user {
-  float: right;
-  height: 64px;
-  line-height: 64px;
-  overflow: hidden;
+  justify-self: right;
   color: #fff;
+}
+.fullWindow {
+  margin-top: 10px;
+  background-color: green;
+  height: calc(100% - 70px);
 }

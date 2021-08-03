@@ -1,6 +1,33 @@
 <nz-layout style="min-height: 100vh;" >
-  <nz-header >
-    <h1>WorkFlow</h1>
+  <nz-header  >
+    <div style="display: flex;">
+      <h1 style="margin-right: 100px;" >WorkFlow</h1>
+      <ul nz-menu nzMode="horizontal" class="titleMenubar" nzTheme="dark" *ngIf="!isSideMenu" >
+        <ng-container *ngFor="let node of menuTree">
+          <ng-container *canOperate="node.canOperate">
+            <li nz-menu-item nzMatchRouter="true" *ngIf="!node.children; else elseTemplate">
+              <a [routerLink]="[ node.routerLink ]" routerLinkActive="active" (click)="navigateTo(node)">
+                <i nz-icon [nzType]="node.iconType"></i>
+                <span>{{node.name}}</span>
+              </a>
+            </li>
+            <ng-template #elseTemplate>
+              <li nz-submenu [nzTitle]="node.name" [nzIcon]="node.iconType">
+                <ul>
+                  <li nz-menu-item nzMatchRouter="true" *ngFor="let item of node.children">
+                    <a [routerLink]="[ item.routerLink ]" routerLinkActive="active" (click)="navigateTo(item)">
+                      <i nz-icon [nzType]="item.iconType"></i>
+                      {{item.name}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </div>
+
     <div class="user">
       <a nz-dropdown [nzDropdownMenu]="menu" [nzOverlayStyle]="{top:'10px'}">
         <nz-badge>
@@ -12,66 +39,65 @@
       </a>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu nzSelectable="true">
-          <li nz-menu-item>修改密码</li>
+          <li nz-menu-item (click)="modifyPwd()">修改密码</li>
           <li nz-menu-divider></li>
-          <li nz-menu-item>注销</li>
+          <li nz-menu-item (click)="logout()">注销</li>
         </ul>
       </nz-dropdown-menu>
     </div>
   </nz-header>
   <nz-layout>
-    <nz-sider  nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null"  >
-      <ul nz-menu nzMode="inline" nzTheme="light" >
-        <!-- <ng-container *ngFor="let node of menuTree">
+    <nz-sider  nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" *ngIf="isSideMenu"  >
+      <ul nz-menu nzMode="inline" nzTheme="light"  >
+        <ng-container *ngFor="let node of menuTree">
           <ng-container *canOperate="node.canOperate">
-              <li nz-menu-item nzMatchRouter *ngIf="!node.children">
-                  <a [routerLink]="[ node.routerLink ]" >
-                      <i nz-icon [nzType]="node.iconType"></i><span
-                          *ngIf="!isCollapsed">{{node.name}}</span></a>
-              </li>
-              <li nz-submenu [nzIcon]="node.iconType" [nzTitle]="node.name" *ngIf="node.children">
-                  <ul>
-                      <ng-container *ngFor="let childNode of node.children">
-                          <li nz-menu-item nzMatchRouter *canOperate="childNode.canOperate">
-                              <a [routerLink]="[ childNode.routerLink ]"
-                                 >
-                                  <i nz-icon [nzType]="childNode.iconType"></i>{{childNode.name}}</a></li>
-                      </ng-container>
-                  </ul>
-              </li>
-          </ng-container>
-      </ng-container> -->
-      <ng-container *ngFor="let node of menuTree">
-        <ng-container *canOperate="node.canOperate">
-
-          <li nz-menu-item nzMatchRouter="true" *ngIf="!node.children">
-              <a [routerLink]="[ node.routerLink ]" >
-                <i nz-icon [nzType]="node.iconType"></i>
-                <span *ngIf="!isCollapsed">{{node.name}}</span>
-              </a>
-          </li>
-
-          <li nz-submenu [nzIcon]="node.iconType" [nzTitle]="node.name" *ngIf="node.children" >
-            <ul>
-              <ng-container *ngFor="let item of node.children">
-                <li nz-menu-item nzMatchRouter="true" *canOperate="item.canOperate">
-                  <a [routerLink]="[ item.routerLink ]">
-                    <i nz-icon [nzType]="item.iconType"></i>
-                    <span *ngIf="!isCollapsed">{{item.name}}</span>
-                  </a>
-                </li>
-              </ng-container>
+            <li nz-menu-item nzMatchRouter="true" *ngIf="!node.children">
+                <a [routerLink]="[ node.routerLink ]" (click)="navigateTo(node)">
+                  <i nz-icon [nzType]="node.iconType"></i>
+                  <span *ngIf="!isCollapsed">{{node.name}}</span>
+                </a>
+            </li>
+            <li nz-submenu [nzIcon]="node.iconType" [nzTitle]="node.name" *ngIf="node.children" >
+              <ul>
+                <ng-container *ngFor="let item of node.children">
+                  <li nz-menu-item nzMatchRouter="true" *canOperate="item.canOperate">
+                    <a [routerLink]="[ item.routerLink ]" (click)="navigateTo(item)">
+                      <i nz-icon [nzType]="item.iconType"></i>
+                      <span >{{item.name}}</span>
+                    </a>
+                  </li>
+                </ng-container>
               </ul>
-          </li>
-
+            </li>
           </ng-container>
         </ng-container>
       </ul>
-
     </nz-sider>
-    <nz-content>
-      <nz-card>
+    <nz-content style="margin: 10px 10px;">
+      <nz-card nzSize="small" >
+        <div style="display: flex;align-items: center;">
+           <!-- 收起按钮 -->
+          <ng-container *ngIf="isSideMenu">
+            <button nz-button nzType="link" nzSize="small" (click)="isCollapsed=!isCollapsed">
+              <i nz-icon [nzType]="isCollapsed?'menu-unfold':'menu-fold'"></i>
+            </button>
+            <span style="color: gray; padding: 0 10px;">|</span>
+          </ng-container>
+          <!-- 横竖显示菜单栏 -->
+          <ng-container>
+            <button nz-button nzType="link" nzSize="small" (click)="isSideMenu=!isSideMenu;isCollapsed=false;">
+              <i nz-icon [nzType]="isSideMenu?'insert-row-left':'insert-row-above'"></i>
+            </button>
+          </ng-container>
+          <span style="color: lightgray; padding: 0 10px;">|</span>
+          <nz-breadcrumb style="margin-right: 20px;">
+            <nz-breadcrumb-item *ngFor="let item of breadcrumbInfo_col">{{item}}</nz-breadcrumb-item>
+          </nz-breadcrumb>
 
+          <nz-tag style="cursor: pointer;" *ngFor="let tag of tags" nzMode="closeable" (click)="navigateTag(tag)" (nzOnClose)="tagClose(tag)">
+            {{tag.name}}
+          </nz-tag>
+        </div>
       </nz-card>
       <div class="fullWindow">
         <router-outlet></router-outlet>
@@ -79,5 +105,57 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
+
+<ng-template #modifyPwdTitleTpl>
+  <span>修改密码</span>
+</ng-template>
+<ng-template #modifyPwdContentTpl>
+  <form nz-form [formGroup]="modifyFormGroup" (ngSubmit)="_submitForm()" >
+    <nz-form-item  >
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="user">
+          <input nz-input  formControlName="userName">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入旧密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input nz-input type="password"  formControlName="oldPwd" placeholder="旧密码">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入新密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input nz-input type="password"  formControlName="newPwd" placeholder="新密码">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="confirmPasswordErrorTpl">
+        <nz-input-group nzPrefixIcon="lock">
+          <input nz-input formControlName="confirmPwd" type="password" placeholder="确认新密码">
+        </nz-input-group>
+        <ng-template #confirmPasswordErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('notEqual')">
+            两次密码输入不一致！
+          </ng-container>
+          <ng-container *ngIf="control.hasError('required')">
+            请输入以确认新密码！
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button style="width: 100%;" [nzLoading]="isLoading" nzType="primary">确认修改</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-template>
+
+
 
 

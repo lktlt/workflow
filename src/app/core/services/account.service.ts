@@ -20,7 +20,7 @@ export interface LoginResult {
 export class AccountService {
 
   constructor(private urlConfig: UrlConfigService, private http: HttpClient) { }
-  
+
   getCaptcha() {
     return this.http.get<CptchaResult>(this.urlConfig.captchaUri);
   }
@@ -31,4 +31,8 @@ export class AccountService {
         "UserName": userName, "PassWord": pwd, "CaptchaKey": captchaKey, "CaptchaValue": captchaValue
       })
   }
+  modifySelfPwd(oldPwd: string, newPwd: string) {
+    console.log("------>", oldPwd, newPwd);
+    return this.http.post(this.urlConfig.ModifySelfPasswordUri, { "OldPassword": oldPwd, "NewPassword": newPwd });
+   }
 }

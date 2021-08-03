@@ -22,6 +22,9 @@ export class StorageService {
   set Name(value) {
     localStorage.setItem("name", value||'');
   }
+  get userName() {
+    return localStorage.getItem("username");
+  }
   get userToken() {
     return localStorage.getItem('userToken')||'';
   }

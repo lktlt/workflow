@@ -16,6 +16,7 @@ import { AuthHeaderInterceptor } from "./core/interceptors/auth-header-intercept
 import { ErrorHandlerInceptor } from "./core/interceptors/error-handler-interceptor";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { LayoutModule } from './pages/layout/layout.module';
+import { CacheInterceptor } from './core/interceptors/cache-interceptor';
 
 
 registerLocaleData(zh);
@@ -40,8 +41,9 @@ export function initializeApp(uriConfig: UrlConfigService) {
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
     NzMessageService,
-    // 拦截器
+    // 拦截器 注意顺序
     { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInceptor, multi: true },
     UrlConfigService,
     // 执行指定的promise，程序会阻塞直到promise resolve
