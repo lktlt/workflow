@@ -1,0 +1,6 @@
+<nz-tree [nzData]="nodes" nzShowIcon="true" [nzExpandedIcon]="mutiExpandedIconTpl" (nzClick)="treeClick($event)">
+  <ng-template #mutiExpandedIconTpl let-node let-origin="origin">
+    <i *ngIf="origin.isLeaf" nz-icon nzType="team" class="ant-tree-switcher-line-icon"></i>
+    <i *ngIf="!origin.isLeaf" nz-icon [nzType]="node.isExpanded?'caret-down':'caret-right'" style="color:lightgray"></i>
+  </ng-template>
+</nz-tree>

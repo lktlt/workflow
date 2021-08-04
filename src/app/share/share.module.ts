@@ -17,6 +17,10 @@ import { NzMessageServiceModule } from "ng-zorro-antd/message";
 import { NzDividerModule } from "ng-zorro-antd/divider";
 import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
 import { NzTagModule } from "ng-zorro-antd/tag";
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzStatisticModule } from "ng-zorro-antd/statistic";
+import { NzTreeModule } from "ng-zorro-antd/tree";
+import { DepartmentTreeComponent } from './components/department-tree/department-tree.component';
 
 const ZORRO_MODULES = [
   NzLayoutModule,
@@ -32,11 +36,15 @@ const ZORRO_MODULES = [
   NzMessageServiceModule,
   NzDividerModule,
   NzBreadCrumbModule,
-  NzTagModule
+  NzTagModule,
+  NzGridModule,
+  NzStatisticModule,
+  NzTreeModule
 ]
 @NgModule({
   declarations: [
-    CanOperateDirective
+    CanOperateDirective,
+    DepartmentTreeComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +60,8 @@ const ZORRO_MODULES = [
     ReactiveFormsModule,
     RouterModule,
     ...
-    ZORRO_MODULES
+    ZORRO_MODULES,
+    DepartmentTreeComponent
   ]
 
 })

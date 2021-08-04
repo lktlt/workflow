@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: "", component: LayoutComponent,
     children: [
-      { path: "", loadChildren: () => import("./pages/information/information.module").then(m => m.InfomationModule) }
+      { path: "", loadChildren: () => import("./pages/information/information.module").then(m => m.InfomationModule) },
+      { path: "system", loadChildren: () => import("./pages/system-manage/systerm-manage.module").then(m => m.SystermManageModule) }
     ]
   },
   { path: "**", loadChildren: () => import("./pages/notfound/notfound.module").then(m => m.NotfoundModule) }

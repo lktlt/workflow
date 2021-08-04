@@ -30,9 +30,9 @@ export class LayoutComponent implements OnInit {
     {
       name: '系统管理', canOperate: 'systemmanage', routerLink: '', iconType: 'setting', firstBreadcrumb: '', lastBreadcrumb: '',
       children: [
-        { name: '用户管理', canOperate: 'userManage', routerLink: '/systemManage/userManage', iconType: 'user', firstBreadcrumb: '系统管理', lastBreadcrumb: '用户管理' },
-        { name: '角色管理', canOperate: 'userManage', routerLink: '/systemManage/userManage', iconType: 'idcard', firstBreadcrumb: '系统管理', lastBreadcrumb: '角色管理' },
-        { name: '菜单管理', canOperate: 'userManage', routerLink: '/systemManage/userManage', iconType: 'menu', firstBreadcrumb: '系统管理', lastBreadcrumb: '菜单管理' },
+        { name: '用户管理', canOperate: 'userManage', routerLink: '/system/user', iconType: 'user', firstBreadcrumb: '系统管理', lastBreadcrumb: '用户管理' },
+        { name: '角色管理', canOperate: 'roleManage', routerLink: '/system/role', iconType: 'idcard', firstBreadcrumb: '系统管理', lastBreadcrumb: '角色管理' },
+        { name: '菜单管理', canOperate: 'menuManage', routerLink: '/system/menu', iconType: 'menu', firstBreadcrumb: '系统管理', lastBreadcrumb: '菜单管理' },
       ]
     },
     {

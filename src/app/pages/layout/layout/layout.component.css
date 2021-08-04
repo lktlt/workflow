@@ -16,6 +16,5 @@ nz-header .user {
 }
 .fullWindow {
   margin-top: 10px;
-  background-color: green;
   height: calc(100% - 70px);
 }

@@ -1,0 +1,14 @@
+.card {
+  background-color: white;
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  padding: 20px 80px;
+}
+canvas {
+  width: 100% !important;
+}
+.dflex .item {
+  width: 400px;
+  position: relative;
+}
