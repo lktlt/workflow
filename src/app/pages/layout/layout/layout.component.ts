@@ -101,7 +101,7 @@ export class LayoutComponent implements OnInit {
   }
 
   equalValidator = (control: FormControl): ValidationErrors | null => {
-    // ？不能少，为什么
+    // ？不能少，为什么?可能为null
     const newPasswordControl = this.modifyFormGroup?.controls['newPwd'];
     const newPwd = newPasswordControl?.value;
     const confirmPWd = control.value;

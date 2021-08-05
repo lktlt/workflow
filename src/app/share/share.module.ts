@@ -20,7 +20,13 @@ import { NzTagModule } from "ng-zorro-antd/tag";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzStatisticModule } from "ng-zorro-antd/statistic";
 import { NzTreeModule } from "ng-zorro-antd/tree";
+import { NzSelectModule } from "ng-zorro-antd/select";
+import { NzTableModule } from "ng-zorro-antd/table";
+import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
+import { NzRadioModule } from "ng-zorro-antd/radio";
+import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { DepartmentTreeComponent } from './components/department-tree/department-tree.component';
+import { GenderPipe } from "./pipes/gender.pipe";
 
 const ZORRO_MODULES = [
   NzLayoutModule,
@@ -39,12 +45,18 @@ const ZORRO_MODULES = [
   NzTagModule,
   NzGridModule,
   NzStatisticModule,
-  NzTreeModule
+  NzTreeModule,
+  NzTableModule,
+  NzSelectModule,
+  NzRadioModule,
+  NzSwitchModule,
+  NzTreeSelectModule
 ]
 @NgModule({
   declarations: [
     CanOperateDirective,
-    DepartmentTreeComponent
+    DepartmentTreeComponent,
+    GenderPipe,
   ],
   imports: [
     CommonModule,
@@ -61,6 +73,7 @@ const ZORRO_MODULES = [
     RouterModule,
     ...
     ZORRO_MODULES,
+    GenderPipe,
     DepartmentTreeComponent
   ]
 

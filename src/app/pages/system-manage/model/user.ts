@@ -9,4 +9,9 @@ export class User {
   isActive?: boolean;
   password?: string;
   createdTime?: Date;
+  roleName?: string;
+  positionName?: string;
+  departmentName?: string;
+  [propName: string]: any;
+
 }

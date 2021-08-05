@@ -1,0 +1,12 @@
+.searchBar {
+  margin-top: 0;
+}
+.searchBar nz-form-label {
+  width: 70px;
+}
+.searchBar input {
+  width: 150px;
+}
+.searchBar nz-select {
+  width: 150px;
+}
