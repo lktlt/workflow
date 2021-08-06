@@ -24,6 +24,7 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzRadioModule } from "ng-zorro-antd/radio";
+import { NzPaginationModule } from "ng-zorro-antd/pagination";
 import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { DepartmentTreeComponent } from './components/department-tree/department-tree.component';
 import { GenderPipe } from "./pipes/gender.pipe";
@@ -50,6 +51,7 @@ const ZORRO_MODULES = [
   NzSelectModule,
   NzRadioModule,
   NzSwitchModule,
+  NzPaginationModule,
   NzTreeSelectModule
 ]
 @NgModule({

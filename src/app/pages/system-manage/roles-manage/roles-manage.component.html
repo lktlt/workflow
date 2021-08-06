@@ -1,1 +1,100 @@
-<p>roles-manage works!</p>
+<nz-card nzSize="small">
+  <form nz-form  [formGroup]="searchGroup" (ngSubmit)="submitSearch()" nzLayout="inline">
+    <nz-form-item  >
+      <nz-form-control nzprefixiocn  >
+        <nz-input-group nzPrefixIcon="search"   >
+          <input nz-input [attr.id]="'roleName'" formControlName="roleName" placeholder="角色名">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item >
+      <nz-form-control  >
+        <button nz-button nzType="primary">搜索</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
+<nz-card style="margin-top: 10px;height: calc(100% - 70px);" nzSize="small">
+  <div style="margin-top: 10px;">
+    <button nz-button (click)="addRole(addRoleTitleTpl,roleContentTpl)"><i nz-icon nzType="plus"></i>添加角色</button>
+    <button nz-button (click)="refresh()" style="margin-left: 10px;"><i nz-icon nzType="sync"></i>刷新数据</button>
+  </div>
+  <div style="margin-top: 10px;">
+    <nz-table #nzTable [nzData]="roleList" [nzPageSize]="10" nzBordered="true" >
+      <thead>
+        <tr>
+          <th nzAlign="center" nzWidth="100px">#</th>
+          <th nzAlign="center" nzWidth="230px">名称</th>
+          <th nzAlign="center">备注</th>
+          <th nzAlign="center" nzWidth="150px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of nzTable.data;let i=index">
+          <td nzAlign="center">{{i+1+(page - 1)*pageSize}}</td>
+          <td nzAlign="center">{{role.name}}</td>
+          <td nzAlign="center">{{role.remark}}</td>
+          <td nzAlign="center">
+            <button nz-button nzType="default" nzShape="circle" [disabled]="role.name=='超级管理员'"
+            (click)="editRole(editRoleitleTpl,roleContentTpl,role)">
+              <i nz-icon nzType="edit" ></i>
+            </button>
+            <button style="margin-left: 10px;"  (click)="remooveRole(role.name||'')" nz-button
+            nzType="default" nzShape="circle" [disabled]="role.name=='超级管理员'">
+              <i nz-icon nzType="delete" ></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>
+
+<ng-template #addRoleTitleTpl>
+  <span>创建新角色</span>
+</ng-template>
+<ng-template #editRoleitleTpl>
+  <span>编辑角色</span>
+</ng-template>
+<ng-template #roleContentTpl>
+  <form nz-form [formGroup]="addGroup" (ngSubmit)="submitAdd()" nzLayout="horizontal">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="roleName" nzRequired>角色名称</nz-form-label>
+      <nz-form-control [nzSpan]="14" [nzXs]="24" [nzErrorTip]="roleNameErrorTpl" >
+        <nz-input-group>
+          <input nz-input [attr.id]="'roleName'" formControlName="roleName" placeholder="角色名称">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="roleRemark" >角色备注</nz-form-label>
+      <nz-form-control  [nzSm]="14" [nzXs]="24">
+          <textarea nz-input rows="2" [attr.id]="'roleRemark'" formControlName="roleRemark" placeholder="角色备注"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="menu" >菜单权限</nz-form-label>
+      <nz-form-control  [nzSm]="14" [nzXs]="24">
+          <nz-tree-select #menuTree [nzNodes]="nodes" nzCheckable  [attr.id]="'menu'" formControlName="menu" placeholder="请选择"></nz-tree-select>
+      </nz-form-control>
+    </nz-form-item>
+<nz-form-item>
+  <nz-form-control nzSpan="16" nzOffset="6" >
+    <button nz-button nzType="primary">提交</button>
+    <button nz-button (click)="modal.close()">取消</button>
+  </nz-form-control>
+</nz-form-item>
+  </form>
+</ng-template>
+
+<ng-template #roleNameErrorTpl let-control>
+  <ng-container *ngIf="control.hasError('required')">
+    请输入角色名
+  </ng-container>
+  <ng-container *ngIf="control.hasError('maxlength')">
+    角色名长度不能超过15！
+  </ng-container>
+</ng-template>
+

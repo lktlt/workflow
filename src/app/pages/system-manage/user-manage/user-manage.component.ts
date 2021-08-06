@@ -76,7 +76,6 @@ export class UserManageComponent implements OnInit {
       this._searchObject.roleId,
       this._searchObject.position,
     ).subscribe((result: any) => {
-      // console.log(result);
       this.userDatas = result["data"];
       this.total = result["count"];
     });
@@ -113,8 +112,6 @@ export class UserManageComponent implements OnInit {
     this.tplModal.close();
   }
   addUser(title: TemplateRef<any>, content: TemplateRef<any>) {
-    console.log("add");
-
     this.isNewUser = true;
     this.editedUser = new User();
     this.editGroup = this.fb.group({
@@ -151,7 +148,7 @@ export class UserManageComponent implements OnInit {
         gender: [result['sex']],
         isActive: [user['isActive']],
       })
-      this.modalService.create({
+      this.tplModal = this.modalService.create({
         nzTitle: title,
         nzContent: content,
         nzFooter: null,
@@ -177,11 +174,12 @@ export class UserManageComponent implements OnInit {
 
   removeUser(id:string) {
     this.tplModal = this.modalService.create({
-      nzTitle: "确认删除该用户？",
-      nzContent: "",
+      nzTitle: "删除用户",
+      nzContent: "确认删除该用户？",
       nzOnOk: () => {
         this.userService.delete(id).subscribe(() => {
           this.messageService.success("删除成功！");
+          this.refresh();
         });
       }
     });
@@ -194,6 +192,7 @@ export class UserManageComponent implements OnInit {
     }
     if (this.editGroup.valid) {
       let user = new User();
+
       user.avatar = this.editGroup.value['avatar'];
       user.userName = this.editGroup.value['userName'];
       user.name = this.editGroup.value['name'];
@@ -203,6 +202,7 @@ export class UserManageComponent implements OnInit {
       user.positionIds = (this.editGroup.value['positions']).filter((item: string) => item !== '').join(',');
       user.sex = this.editGroup.value['sex'];
       user.isActive = this.editGroup.value['isActive'];
+
       if (this.editedUser.id && !this.isNewUser) {
         this.userService.update(user).subscribe(
           result => {
@@ -221,9 +221,9 @@ export class UserManageComponent implements OnInit {
     }
   }
   pwdSubmit() {
-    for (const key in this.pwdGroup) {
-      this.pwdGroup.controls[key].markAsDirty();
-      this.pwdGroup.controls[key].updateValueAndValidity();
+    for (const i in this.pwdGroup.controls) {
+      this.pwdGroup.controls[i].markAsDirty();
+      this.pwdGroup.controls[i].updateValueAndValidity();
     }
     if (this.pwdGroup.valid) {
       this.userService.setPwd({
@@ -234,5 +234,14 @@ export class UserManageComponent implements OnInit {
         this.messageService.success("修改成功");
       });
     }
+  }
+
+  pageChange() {
+    this.refresh();
+   }
+
+  sizeChange() {
+    this.page = 1;
+    this.refresh();
   }
 }

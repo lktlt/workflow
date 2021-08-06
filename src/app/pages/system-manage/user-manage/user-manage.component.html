@@ -65,7 +65,7 @@
               <nz-form-item >
                 <nz-form-control>
                     <button nz-button nzType="primary">搜索</button>
-                    <button nz-button style="margin-left: 10PX;" type="button" class="ml-10">重置</button>
+                    <button nz-button style="margin-left: 10PX;" type="button" class="ml-10" (click)="resetSerchFormGroup()">重置</button>
                 </nz-form-control>
             </nz-form-item>
           </div>
@@ -121,11 +121,11 @@
                   (click)="editUser(editUsertitleTpl,userContentTpl,data)">
                     <i nz-icon nzType="edit"></i>
                   </button>
-                  <button nz-button nzType="default" nzShape="circle" *canOperate="'setPasswordBtn'"
+                  <button style="margin-left: 10px;" nz-button nzType="default" nzShape="circle" *canOperate="'setPasswordBtn'"
                   (click)="setPwd(pwdTpl,data)">
                       <i nz-icon nzType="lock"></i>
                     </button>
-                  <button nz-button nzType="default" nzShape="circle" *canOperate="'deleteUserBtn'"
+                  <button style="margin-left: 10px;" nz-button nzType="default" nzShape="circle" *canOperate="'deleteUserBtn'"
                   (click)="removeUser(data.id||'')">
                     <i nz-icon nzType="delete"></i>
                   </button>
@@ -134,6 +134,11 @@
             </tbody>
           </nz-table>
         </div>
+        <div style="margin-top: 10px;">
+          <nz-pagination [(nzPageSize)]="pageSize" [(nzPageIndex)]="page" [nzTotal]="total" nzShowSizeChanger
+              nzShowQuickJumper (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="sizeChange()">
+          </nz-pagination>
+      </div>
       </nz-card>
     </div>
 </nz-row>
@@ -149,10 +154,10 @@
   <form nz-form [formGroup]="editGroup" (ngSubmit)="editSubmit()" >
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24">头像</nz-form-label>
-      <nz-form-control  [nzSm]="14" [nzXs]="24">
-          <!-- 头像组件 -->
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+          <app-avatar-select formControlName="avatar"></app-avatar-select>
       </nz-form-control>
-    </nz-form-item>
+  </nz-form-item>
     <nz-form-item >
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="edit_userName" nzRequired>账号</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="userNameErrorTpl">
@@ -272,7 +277,7 @@
     </nz-form-item>
       <nz-form-item>
         <nz-form-control [nzSpan]="14" [nzOffset]="8">
-          <button nz-button nzType="primary" >提交</button>
+          <button nz-button nzType="primary"  >提交</button>
           <button nz-button style="margin-left: 10px;" type="reset" (click)="cancelEdit()">取消</button>
         </nz-form-control>
       </nz-form-item>

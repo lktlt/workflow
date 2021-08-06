@@ -1,1 +1,23 @@
-<p>avatar-select works!</p>
+
+
+<div (click)="showAvatarModal()" class="avatar-container" >
+  <img *ngIf="input.value" [src]="getImgUrl(input.value)" >
+  <div class="upload-icon" *ngIf="!input.value" >
+    <i nz-icon nzType="plus" nzTheme="outline" ></i>
+    <p>请选择</p>
+  </div>
+</div>
+
+<input  #input style="display: none;">
+
+<ng-template #avatarSelectTpl>
+  <div *ngFor="let item of avatarList" class="avatar_selecte" (click)="selectAvatar(item)" [ngClass]="{'avatar_selected': selectedAvatar==item}">
+    <img [src]="getImgUrl(item)"  >
+  </div>
+</ng-template>
+
+<ng-template #avatarFooterTpl>
+  <button nz-button nzType="primary" (click)="confirm()">确定</button>
+</ng-template>
+
+
