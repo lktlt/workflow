@@ -28,6 +28,7 @@ import { NzPaginationModule } from "ng-zorro-antd/pagination";
 import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { DepartmentTreeComponent } from './components/department-tree/department-tree.component';
 import { GenderPipe } from "./pipes/gender.pipe";
+import { MenuTypePipe } from './pipes/menu-type';
 
 const ZORRO_MODULES = [
   NzLayoutModule,
@@ -59,6 +60,7 @@ const ZORRO_MODULES = [
     CanOperateDirective,
     DepartmentTreeComponent,
     GenderPipe,
+    MenuTypePipe
   ],
   imports: [
     CommonModule,
@@ -76,6 +78,7 @@ const ZORRO_MODULES = [
     ...
     ZORRO_MODULES,
     GenderPipe,
+    MenuTypePipe,
     DepartmentTreeComponent
   ]
 

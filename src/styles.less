@@ -10,3 +10,65 @@
 @primary-color: #f0c239;
 
 @import "~ng-zorro-antd/ng-zorro-antd.dark.less";
+
+.content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  .left {
+    position: absolute;
+    width: 300px;
+    left: 0;
+    height: 100%;
+    background-color: #ccc;
+    nz-card {
+      overflow: auto;
+      height: 100%;
+    }
+
+  }
+  .right {
+    position: absolute;
+    left: 310px;
+    height: 100%;
+    width: calc(100% - 10px);
+    background-color: #666;
+    nz-card {
+      overflow: auto;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mb-5 {
+    margin-bottom: 5px !important;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+
+.ml-5 {
+    margin-left: 5px;
+}
+
